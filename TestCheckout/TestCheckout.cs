@@ -1,12 +1,12 @@
 ﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CheckoutKata;
 
-namespace CheckoutKata
+namespace TestCheckoutKata
 {
-    class Program
+    [TestClass]
+    public class TestCheckout
     {
         static Dictionary<string, Dictionary<int, int>> skuSpecialPriceMap = new Dictionary<string, Dictionary<int, int>>
         {
@@ -41,7 +41,8 @@ namespace CheckoutKata
             { "D",     15 },
         };
 
-        static void Main(string[] args)
+        [TestMethod]
+        public void TestScanSkusAndGetTotalPrice()
         {
             SkuPriceList skuPriceList = new SkuPriceList();
             foreach (var s in skuPriceMap)
@@ -65,28 +66,15 @@ namespace CheckoutKata
 
             Checkout checkout = new Checkout(skuPriceList, skuSpecialPriceList);
 
-            bool pass = true;
             foreach (var s in testScenariosMap)
             {
-                foreach (var name in s.Key)
+                foreach (var item in s.Key)
                 {
-                    checkout.Scan(name.ToString());
+                    checkout.Scan(item.ToString());
                 }
 
-                var result = checkout.GetTotalPrice();
-                if (s.Value != result)
-                {
-                    Console.WriteLine("Failed at scenario {0}. Expected {1}, but got {2}", s.Key, s.Value, result);
-                    pass = false;
-                }
+                Assert.AreEqual(s.Value, checkout.GetTotalPrice());
             }
-
-            if (pass)
-            {
-                Console.WriteLine("PASS");
-            }
-
-            Console.ReadKey();
         }
     }
 }

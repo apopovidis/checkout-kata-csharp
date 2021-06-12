@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckoutKata", "CheckoutKata\CheckoutKata.csproj", "{73D6BA4A-99E8-412B-9020-7AF73F633BF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCheckoutKata", "TestCheckout\TestCheckoutKata.csproj", "{2DBE9941-8103-40C9-B0D7-7F280541121C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{73D6BA4A-99E8-412B-9020-7AF73F633BF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73D6BA4A-99E8-412B-9020-7AF73F633BF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73D6BA4A-99E8-412B-9020-7AF73F633BF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DBE9941-8103-40C9-B0D7-7F280541121C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DBE9941-8103-40C9-B0D7-7F280541121C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DBE9941-8103-40C9-B0D7-7F280541121C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DBE9941-8103-40C9-B0D7-7F280541121C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
