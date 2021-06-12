@@ -39,6 +39,11 @@ namespace CheckoutKata
             { "B",     30 },
             { "C",     20 },
             { "D",     15 },
+            { "AAA",   130 },
+            { "BB",    45 },
+            { "BAB",   95 },
+            { "AAAAA", 190 },
+            { "DDAA",  130}
         };
 
         static void Main(string[] args)

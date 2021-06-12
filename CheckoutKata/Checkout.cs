@@ -70,10 +70,61 @@ namespace CheckoutKata
 
         private int getTotalPriceForItem(string name)
         {
-            int count = this.scannedSkusMap[name],
-                skuPriceForName = this.skuPriceList.GetSku(name).GetPrice();
+            int total = 0,
+                count = this.scannedSkusMap[name];
 
-            return count * skuPriceForName;
+            int skuPriceForName = this.skuPriceList.GetSku(name).GetPrice();
+
+            // if there is no offer for the name just do a total and return it
+            var skuPriceListForName = this.skuSpecialPriceList.GetSkus(name);
+            if (skuPriceListForName.Count == 0)
+            {
+                return count * skuPriceForName;
+            }
+
+            int index = 0;
+            int[] skuOffersCounts = new int[skuPriceListForName.Count];
+            foreach (var c in skuPriceListForName)
+            {
+                skuOffersCounts[index] = c.GetNumberOfUnits();
+                index++;
+            }
+
+            // sort the sku offer counts so that we start from the highest offer
+            Array.Sort(skuOffersCounts);
+
+            var remainingCount = count;
+            for (int i = skuOffersCounts.Length - 1; i >= 0; i--)
+            {
+                if (remainingCount < skuOffersCounts[i])
+                {
+                    continue;
+                }
+
+                var skuPriceListForNameAndNumberOfUnits = this.skuSpecialPriceList.GetSkus(name, skuOffersCounts[i]);
+                int nextOfferPrice = skuPriceListForNameAndNumberOfUnits.FirstOrDefault().GetTotalPrice(),
+                    reminder = remainingCount % skuOffersCounts[i];
+
+                // the largest offer is satisfied so return
+                if (reminder == 0)
+                {
+                    total = (remainingCount / skuOffersCounts[i]) * nextOfferPrice;
+                    remainingCount = 0;
+                    break;
+                }
+
+                // any other next offer
+                total += ((remainingCount - reminder) / skuOffersCounts[i]) * nextOfferPrice;
+                remainingCount = reminder;
+            }
+
+            // if we have remaining count still then add it to totals
+            if (remainingCount > 0)
+            {
+                total += remainingCount * skuPriceForName;
+            }
+
+            return total;
         }
     }
 }

@@ -39,6 +39,11 @@ namespace TestCheckoutKata
             { "B",     30 },
             { "C",     20 },
             { "D",     15 },
+            { "AAA",   130 },
+            { "BB",    45 },
+            { "BAB",   95 },
+            { "AAAAA", 190 },
+            { "DDAA",  130}
         };
 
         static Dictionary<string, int> testScenariosMapMultiple = new Dictionary<string, int>
