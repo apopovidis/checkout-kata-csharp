@@ -6,7 +6,7 @@ namespace CheckoutKata
 {
     interface ICheckout
     {
-        void Scan(string name);
+        void Scan(string name,int count);
         int GetTotalPrice();
     }
 
@@ -23,12 +23,17 @@ namespace CheckoutKata
             this.initScannedSkusMap();
         }
 
-        public void Scan(string name)
+        public void Scan(string name,int count)
         {
             char[] charsToTrim = { ' ' };
             if (name.Trim(charsToTrim) == "")
             {
                 throw new ArgumentException(String.Format("{0} cannot be empty", name), "name");
+            }
+
+            if (count <= 0)
+            {
+                throw new ArgumentException(String.Format("{0} must be greater than zero", count), "count");
             }
 
             if (!this.scannedSkusMap.ContainsKey(name))
@@ -37,7 +42,7 @@ namespace CheckoutKata
             }
 
             // initialized in constructor
-            this.scannedSkusMap[name] += 1;
+            this.scannedSkusMap[name] += count;
         }
 
         public int GetTotalPrice()

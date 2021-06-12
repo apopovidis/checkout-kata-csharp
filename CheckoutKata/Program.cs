@@ -70,7 +70,7 @@ namespace CheckoutKata
             {
                 foreach (var name in s.Key)
                 {
-                    checkout.Scan(name.ToString());
+                    checkout.Scan(name.ToString(),1);
                 }
 
                 var result = checkout.GetTotalPrice();

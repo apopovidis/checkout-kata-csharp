@@ -41,15 +41,24 @@ namespace TestCheckoutKata
             { "D",     15 },
         };
 
-        [TestMethod]
-        public void TestScanSkusAndGetTotalPrice()
+        static Dictionary<string, int> testScenariosMapMultiple = new Dictionary<string, int>
+        {
+            { "C",     20 },
+            { "CC",    40 },
+        };
+
+        public SkuPriceList GetSkuPriceList()
         {
             SkuPriceList skuPriceList = new SkuPriceList();
             foreach (var s in skuPriceMap)
             {
                 skuPriceList.AddItem(s.Key, s.Value);
             }
+            return skuPriceList;
+        }
 
+        public SkuSpecialPriceList GetSkuSpecialPriceList()
+        {
             SkuSpecialPriceList skuSpecialPriceList = new SkuSpecialPriceList();
             foreach (var s1 in skuSpecialPriceMap)
             {
@@ -64,15 +73,31 @@ namespace TestCheckoutKata
                 }
             }
 
-            Checkout checkout = new Checkout(skuPriceList, skuSpecialPriceList);
+            return skuSpecialPriceList;
+        }
 
+        [TestMethod]
+        public void TestScanSkusAndGetTotalPriceSingle()
+        {
+            Checkout checkout = new Checkout(this.GetSkuPriceList(), this.GetSkuSpecialPriceList());
             foreach (var s in testScenariosMap)
             {
                 foreach (var item in s.Key)
                 {
-                    checkout.Scan(item.ToString());
+                    checkout.Scan(item.ToString(),1);
                 }
 
+                Assert.AreEqual(s.Value, checkout.GetTotalPrice());
+            }
+        }
+
+        [TestMethod]
+        public void TestScanSkusAndGetTotalPriceMultiple()
+        {
+            Checkout checkout = new Checkout(this.GetSkuPriceList(), this.GetSkuSpecialPriceList());
+            foreach (var s in testScenariosMapMultiple)
+            {
+                checkout.Scan(s.Key[0].ToString(), s.Key.Length);
                 Assert.AreEqual(s.Value, checkout.GetTotalPrice());
             }
         }
