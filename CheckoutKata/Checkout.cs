@@ -10,7 +10,7 @@ namespace CheckoutKata
         int GetTotalPrice();
     }
 
-    public class Checkout
+    public class Checkout: ICheckout
     {
         private SkuPriceList skuPriceList;
         private SkuSpecialPriceList skuSpecialPriceList;
