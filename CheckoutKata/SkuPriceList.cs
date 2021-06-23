@@ -16,9 +16,10 @@ namespace CheckoutKata
         public void AddItem(string name, int price)
         {
             char[] charsToTrim = { ' ' };
-            if (name.Trim(charsToTrim) == "")
+            string n = name.Trim(charsToTrim);
+            if (n == "")
             {
-                throw new ArgumentException(String.Format("{0} cannot be empty", name), "name");
+                throw new ArgumentException(String.Format("{0} cannot be empty", n), "name");
             }
 
             if (price <= 0)
@@ -26,14 +27,13 @@ namespace CheckoutKata
                 throw new ArgumentException(String.Format("{0} must be greater than zero", price), "price");
             }
 
-            var sku = this.GetSku(name);
-            if (sku == null)
+            var sku = this.GetSku(n);
+            if (sku != null)
             {
-                this.items.Add(new SkuPrice(name, price));
+                throw new Exception(String.Format("sku with name {0} already exists", n));
             }
-            else {
-                throw new Exception(String.Format("sku with name {0} already exists", name));
-            }
+
+            this.items.Add(new SkuPrice(n, price));
         }
 
         public SkuPrice GetSku(string name)
