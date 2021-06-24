@@ -52,6 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestSkuSpecialPriceList.cs" />
     <Compile Include="TestSkuPriceList.cs" />
     <Compile Include="TestCheckout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
