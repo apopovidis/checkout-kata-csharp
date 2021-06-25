@@ -26,9 +26,10 @@ namespace CheckoutKata
         public void Scan(string name,int count)
         {
             char[] charsToTrim = { ' ' };
-            if (name.Trim(charsToTrim) == "")
+            string n = name.Trim(charsToTrim);
+            if (n == "")
             {
-                throw new ArgumentException(String.Format("{0} cannot be empty", name), "name");
+                throw new ArgumentException(String.Format("{0} cannot be empty", n), "name");
             }
 
             if (count <= 0)
@@ -36,13 +37,13 @@ namespace CheckoutKata
                 throw new ArgumentException(String.Format("{0} must be greater than zero", count), "count");
             }
 
-            if (!this.scannedSkusMap.ContainsKey(name))
+            if (!this.scannedSkusMap.ContainsKey(n))
             {
-                throw new KeyNotFoundException(String.Format("sku with name {0} does not exist", name));
+                throw new KeyNotFoundException(String.Format("sku with name {0} does not exist", n));
             }
 
             // initialized in constructor
-            this.scannedSkusMap[name] += count;
+            this.scannedSkusMap[n] += count;
         }
 
         public int GetTotalPrice()
@@ -108,7 +109,7 @@ namespace CheckoutKata
                 // the largest offer is satisfied so return
                 if (reminder == 0)
                 {
-                    total = (remainingCount / skuOffersCounts[i]) * nextOfferPrice;
+                    total += (remainingCount / skuOffersCounts[i]) * nextOfferPrice;
                     remainingCount = 0;
                     break;
                 }
