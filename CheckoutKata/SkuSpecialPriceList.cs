@@ -32,8 +32,9 @@ namespace CheckoutKata
             {
                 this.items.Add(new SkuSpecialPrice(n, numberOfUnits, totalPrice));
             }
-            else {
-                throw new Exception(String.Format("sku with name {0}, numberOfUnits {1} and total price {2} already exists", name, numberOfUnits, totalPrice));
+            else
+            {
+                throw new Exception(String.Format("sku with name {0}, numberOfUnits {1} and total price {2} already exists", n, numberOfUnits, totalPrice));
             }
         }
 
